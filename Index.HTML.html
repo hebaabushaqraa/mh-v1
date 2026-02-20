@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+// ⚠️ WARNING: ACCESS DENIED FOR DEVELOPERS!
+//  لا تخرب على حالك المفاجأة وتفتح الـ Console.. 
+// عشان تستمع بالتجربة خليك USER اليوم مش DEV
+
+
+        <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EXCLUSIVELY FOR YOU</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+<style>
+     @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;700;900&display=swap');
+
+:root { 
+    --accent: #1e40af; 
+    --glow: #3b82f6; 
+    --pink: #ff85a2; 
+}
+
+body { 
+    background: #000; 
+    color: #ffffff; 
+    font-family: 'Outfit', sans-serif; 
+    margin: 0; 
+    overflow-x: hidden; 
+    width: 100%; 
+}
+
+.crt-overlay {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 3px 100%; 
+    pointer-events: none; 
+    z-index: 9999;
+    animation: flicker 0.15s infinite; 
+    opacity: 0.3;
+}
+
+@keyframes flicker { 
+    0% { opacity: 0.27; } 
+    50% { opacity: 0.32; } 
+    100% { opacity: 0.29; } 
+}
+
+.global-bg { 
+    position: fixed; 
+    inset: 0; 
+    z-index: -10; 
+    width: 100%; 
+    height: 100%; 
+}
+
+#bg-video { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center 60%; 
+    filter: brightness(0.65); 
+}
+
+.scanlines { 
+    position: fixed; 
+    inset: 0; 
+    z-index: -5; 
+    pointer-events: none; 
+    background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%); 
+    background-size: 100% 4px; 
+    opacity: 0.15; 
+}
+
+.v-overlay { 
+    position: fixed; 
+    inset: 0; 
+    z-index: -4; 
+    background: rgba(0,0,0,0.85); 
+    transition: 2s; 
+}
+
+#lock-screen { 
+    position: fixed; 
+    inset: 0; 
+    z-index: 10000; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    background: transparent; 
+}
+
+.timer-val { 
+    font-family: 'Space Mono', monospace; 
+    font-size: clamp(3rem, 15vw, 6rem); 
+    color: white; 
+    text-shadow: 0 0 30px var(--accent); 
+    font-weight: 900; 
+}
+
+.bypass-input {
+    background: rgba(30, 64, 175, 0.1); 
+    border: 1px solid var(--glow);
+    color: white; 
+    padding: 12px; 
+    text-align: center;
+    font-family: 'Space Mono', monospace; 
+    margin-top: 20px;
+    outline: none; 
+    transition: 0.3s; 
+    width: 220px; 
+    border-radius: 4px;
+}
+
+.bypass-input:focus { 
+    box-shadow: 0 0 15px var(--glow); 
+    border-color: white; 
+}
+
+.name-style {
+    font-family: 'Syncopate', sans-serif; 
+    font-size: clamp(2rem, 11vw, 7rem); 
+    font-weight: 900;
+    text-transform: uppercase; 
+    color: #ffffff !important; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 30px var(--accent); 
+    letter-spacing: 15px; 
+    display: inline-block; 
+    transform: scaleX(1.1); 
+    transition: 0.3s;
+}
+
+.name-style:hover { 
+    animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite; 
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); text-shadow: -2px 0 red, 2px 0 blue; }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+#memory-network-section { 
+    position: relative; 
+    overflow: hidden; 
+}
+
+#star-map-canvas { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    pointer-events: none; 
+    z-index: 0; 
+}
+
+.node-item { 
+    z-index: 2; 
+    position: relative; 
+}
+
+.hug-section { 
+    position: relative; 
+    width: 100%; 
+    max-width: 450px; 
+    height: 160px; 
+    margin: 40px auto; 
+    display: flex; 
+    align-items: flex-end; 
+    justify-content: space-between; 
+    overflow: visible; 
+}
+
+.character { 
+    width: 90px; 
+    height: 90px; 
+    object-fit: contain; 
+    z-index: 10; 
+}
+
+.stitch-blue { 
+    filter: drop-shadow(0 0 10px var(--glow)); 
+}
+
+.stitch-pink { 
+    filter: drop-shadow(0 0 10px var(--pink)); 
+    position: relative; 
+}
+
+.heart-trigger { 
+    font-size: 40px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    z-index: 20; 
+    filter: drop-shadow(0 0 10px var(--pink)); 
+    animation: pulseHeart 1.5s infinite; 
+    margin-bottom: 20px; 
+    position: relative; 
+}
+
+.secret-msg { 
+    position: absolute; 
+    right: 45px; 
+    bottom: 35px; 
+    background: var(--pink); 
+    color: #000; 
+    padding: 5px 0px; 
+    height: 25px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 4px 0 0 4px; 
+    font-family: 'Space Mono', monospace; 
+    font-size: 9px; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    width: 0; 
+    z-index: 5; 
+    box-shadow: 0 0 15px rgba(255, 133, 162, 0.4); 
+}
+
+@keyframes pulseHeart { 
+    0%, 100% { transform: scale(1); } 
+    50% { transform: scale(1.2); } 
+}
+
+.terminal-box { 
+    background: rgba(255, 255, 255, 0.02); 
+    border: 1px solid rgba(59, 130, 246, 0.2); 
+    padding: 60px 20px; 
+    border-radius: 4px; 
+    position: relative; 
+}
+
+.mega-val { 
+    font-size: clamp(2.5rem, 14vw, 6.5rem); 
+    font-weight: 900; 
+    line-height: 1; 
+    color: white; 
+    text-shadow: 0 0 30px var(--accent); 
+}
+
+.video-wrapper { 
+    position: relative; 
+    padding: 10px; 
+    border: 1px solid rgba(59, 130, 246, 0.2); 
+    background: rgba(255, 255, 255, 0.02); 
+    border-radius: 12px; 
+    transition: 0.4s; 
+    cursor: pointer; 
+    overflow: hidden; 
+}
+
+.video-wrapper:hover { 
+    border-color: var(--pink); 
+    box-shadow: 0 0 30px rgba(255, 133, 162, 0.2); 
+    transform: translateY(-5px); 
+}
+
+.vertical-video { 
+    width: 100%; 
+    max-width: 240px; 
+    aspect-ratio: 9/16; 
+    border-radius: 8px; 
+    object-fit: cover; 
+    display: block; 
+}
+
+.video-wrapper::before { 
+    content: "REC ●"; 
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    font-family: 'Space Mono', monospace; 
+    font-size: 8px; 
+    color: #ff0000; 
+    z-index: 5; 
+    animation: blink 1s infinite; 
+}
+
+@keyframes blink { 
+    0%, 100% { opacity: 1; } 
+    50% { opacity: 0; } 
+}
+
+.photo-collage { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 20px; 
+    padding: 40px 10px; 
+}
+
+/* تعديل البطاقة لتصبح بإطار أبيض (نمط بولارويد) */
+.photo-card { 
+    width: clamp(140px, 30vw, 210px); 
+    background: #ffffff !important; /* الإطار الأبيض */
+    padding: 10px 10px 45px 10px; /* المسافة للإطار */
+    border-radius: 2px; 
+    transition: 0.4s; 
+    transform: rotate(var(--r, 0deg)); 
+    filter: grayscale(0.2); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* ظل لإبراز الصورة */
+}
+
+/* تعديل لون الخط أسفل الصورة ليظهر بوضوح على الخلفية البيضاء */
+.photo-place { 
+    display: block; 
+    text-align: center; 
+    margin-top: 15px; 
+    font-family: 'Space Mono', monospace; 
+    font-size: 11px; 
+    color: #1a1a1a !important; /* لون غامق للنص */
+    letter-spacing: 1px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+.photo-card:hover { 
+    transform: rotate(0deg) scale(1.1); 
+    filter: grayscale(0); 
+    z-index: 100; 
+}
+
+.photo-img { 
+    width: 100%; 
+    aspect-ratio: 1/1; 
+    background-size: cover; 
+    background-position: center; 
+    background-color: transparent; 
+}
+
+.btn-strong { 
+    padding: 18px 50px; 
+    border: 2px solid white; 
+    background: transparent; 
+    color: white; 
+    font-family: 'Space Mono', monospace; 
+    font-size: 13px; 
+    font-weight: 900; 
+    letter-spacing: 5px; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+
+.btn-strong:hover { 
+    background: white; 
+    color: black; 
+    box-shadow: 0 0 50px white; 
+}
+
+#main-content { 
+    display: none; 
+}
+
+section { 
+    min-height: 100vh; 
+    padding: 100px 5%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.cyber-rating-card { 
+    width: 100%; 
+    max-width: 500px; 
+    margin: 30px auto; 
+    background: transparent; 
+    border: 1px solid rgba(59, 130, 246, 0.3); 
+    border-radius: 12px; 
+    padding: 15px 35px; 
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); 
+}
+
+.rating-row { 
+    margin-bottom: 45px; 
+    position: relative; 
+}
+
+.forced-error { 
+    position: absolute; 
+    bottom: -22px; 
+    left: 0; 
+    font-family: 'Space Mono', monospace; 
+    font-size: 10px; 
+    color: var(--pink); 
+    text-shadow: 0 0 10px var(--pink); 
+    text-transform: uppercase; 
+    opacity: 0; 
+    transition: 0.3s; 
+    white-space: nowrap; 
+}
+
+.rating-info { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 5px; 
+}
+
+.range-labels { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 5px; 
+    font-family: 'Space Mono', monospace; 
+    font-size: 10px; 
+    color: rgba(255,255,255,0.3); 
+}
+
+.rating-question { 
+    font-family: 'Space Mono', monospace; 
+    font-size: 13px; 
+    color: #fff; 
+    margin-bottom: 15px; 
+    display: block; 
+    letter-spacing: 1px; 
+}
+
+.rating-percentage { 
+    font-family: 'Syncopate', sans-serif; 
+    font-size: 20px; 
+    color: var(--glow); 
+    text-shadow: 0 0 15px var(--glow); 
+    float: right; 
+}
+
+.cyber-range { 
+    -webkit-appearance: none; 
+    width: 100%; 
+    height: 6px; 
+    background: #1a1a1a; 
+    outline: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+}
+
+.cyber-range::-webkit-slider-thumb { 
+    -webkit-appearance: none; 
+    width: 26px; 
+    height: 26px; 
+    background: #ffffff; 
+    border: 3px solid var(--glow); 
+    border-radius: 50%; 
+    box-shadow: 0 0 20px var(--glow); 
+    transition: 0.2s; 
+}
+
+.forced-error.visible { 
+    opacity: 1; 
+    animation: blinkError 1s infinite; 
+}
+
+@keyframes blinkError { 
+    50% { opacity: 0.5; } 
+}
+
+.flip-card { 
+    perspective: 1000px; 
+}
+
+.flip-card-inner { 
+    position: relative; 
+    width: 100%; 
+    height: 100%; 
+    transition: transform 0.6s; 
+    transform-style: preserve-3d; 
+}
+
+.flip-card.is-flipped .flip-card-inner { 
+    transform: rotateY(180deg); 
+}
+
+.card-front, .card-back { 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    -webkit-backface-visibility: hidden; 
+    backface-visibility: hidden; 
+    border-radius: 8px; 
+    overflow: hidden; 
+}
+
+.card-back { 
+    background-color: transparent; 
+    color: white; 
+    transform: rotateY(180deg); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+    text-align: center; 
+    font-family: 'Outfit', sans-serif; 
+    border: 1px solid var(--pink); 
+}
+
+.memory-network {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 10px;
+    align-items: center; 
+}
+
+.node-item {
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(59,130,246,0.15));
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255,255,255,0.05);
+    padding: 8px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.node-item.flip-card {
+    max-width: 240px;
+    aspect-ratio: 1 / 1;
+}
+
+.node-item.video-node {
+    max-width: 180px;
+    aspect-ratio: 9 / 16;
+}
+
+.node-item img, .node-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.node-item.flip-card img {
+    object-position: center center;
+}
+
+.node-item.video-node video {
+    object-position: top center;
+}
+
+.flip-card-inner, .card-front, .card-back {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 10px;
+}
+
+.card-back {
+    border: none !important;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(255, 133, 162, 0.4));
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.2);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+}
+
+.moments-trio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+    width: 100%;
+    max-width: 1300px; 
+    margin: 40px auto;
+}
+
+.moment-card {
+    flex: 1;
+    min-width: 230px; 
+    max-width: 280px; 
+}
+
+.moment-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--pink);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+    text-align: center;
+    display: block;
+}
+
+.moment-video-frame {
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    transition: 0.3s;
+}
+
+.moment-video-frame:hover {
+    border-color: var(--glow);
+    transform: translateY(-5px);
+}
+
+.moment-video-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.terminal-log-container {
+    width: 90%; 
+    max-width: 600px; 
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.2), rgba(255, 133, 162, 0.2));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    font-family: 'Space Mono', monospace; 
+    padding: 25px; 
+    margin: 20px auto; 
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+}
+
+.log-line { 
+    font-size: 11px; 
+    color: #ffffff; 
+    margin-bottom: 7px; 
+    opacity: 0.9; 
+    text-shadow: 0 0 5px rgba(59, 130, 246, 0.5); 
+    text-align: left;
+}
+
+#log-cursor {
+    color: var(--pink); 
+    font-weight: bold;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px #00ff00;
+    animation: blink-status 1.5s infinite;
+}
+
+@keyframes blink-status {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+video:fullscreen {
+    object-fit: contain !important;
+    background-color: #000;
+}
+
+video:-webkit-full-screen {
+    object-fit: contain !important;
+    background-color: #000;
+}
+
+.node-item.video-node::before {
+    content: "REC ●";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: #ff85a2; 
+    z-index: 5;
+    animation: blink 1.5s infinite;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 3px 6px;
+    border-radius: 4px;
+    pointer-events: none;
+    letter-spacing: 1px;
+}
+
+.node-item.video-node:hover::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+#hero p, 
+#university-archives p, 
+#uptime p, 
+#memory-network-section p, 
+#daily-moments p, 
+#gallery h2,
+.terminal-box h3,
+.mega-label,
+p.font-mono.text-white\/40 {
+    color: #ffffff !important; 
+    opacity: 1 !important; 
+    font-size: 18px !important; 
+    font-weight: 700 !important; 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 
+                 0 0 20px rgba(59, 130, 246, 0.4) !important;
+    letter-spacing: 5px !important; 
+    text-transform: uppercase;
+    line-height: 1.8;
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+}
+
+p.font-mono.text-white\/40 {
+    color: #ffffff !important;
+    opacity: 0.8 !important; 
+    font-size: 11px !important; 
+    font-weight: 700 !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    background: transparent !important; 
+    padding: 0 !important;
+    border: none !important;
+}
+
+#memory-network-section p.text-white\/20,
+#daily-moments p.text-white\/20,
+#gallery h2.text-blue-500.opacity-30,
+#uptime h3.font-mono.text-blue-400 {
+    color: #ffffff !important;
+    opacity: 0.9 !important;    
+    font-size: 13.5px !important; 
+    font-weight: 700 !important; 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 
+                 0 0 15px rgba(59, 130, 246, 0.2) !important;
+    letter-spacing: 4px !important; 
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+}
+
+.sentimental-note {
+    width: 95%;
+    max-width: 850px;
+    margin: 40px auto 0;
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(59, 130, 246, 0.05));
+    border: 1px dashed rgba(255, 133, 162, 0.3); 
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sentimental-note::before {
+    content: "DEDICATED_MESSAGE_LOG";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: var(--pink);
+    opacity: 0.6;
+}
+
+.sentimental-note p {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 16px !important; 
+    line-height: 1.8 !important;
+    color: #ffffff !important;
+    font-weight: 400 !important; 
+    letter-spacing: 0.5px !important; 
+    text-transform: none !important;
+    direction: rtl; 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2) !important;
+}
+
+.highlight-pink {
+    color: var(--pink);
+    font-weight: 900;
+    text-shadow: 0 0 8px var(--pink);
+}
+
+.photo-place {
+    display: block;
+    text-align: center;
+    margin-top: 15px; 
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #eee; 
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#prizes-section {
+    padding: 100px 5%;
+    background: transparent !important; 
+    box-shadow: none !important; 
+}
+
+.scratch-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 90%;
+    background: transparent !important; 
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.scratch-card {
+    position: relative;
+    width: 80%;
+    height: 60px; 
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 245, 0.95));
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scratch-card:hover {
+    transform: translateY(-3px) scale(1.01); 
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.7); 
+}
+
+.scratch-card.last-card {
+    border-color: rgba(255, 133, 162, 0.6);
+    box-shadow: 0 0 20px rgba(255, 133, 162, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.scratch-card.last-card:hover {
+    box-shadow: 0 0 30px rgba(255, 133, 162, 0.7), inset 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.scratch-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 1;
+    text-align: center;
+}
+
+.scratch-content h3 {
+    font-family: 'Outfit', sans-serif; 
+    font-size: 16px; 
+    color: #1e40af; 
+    margin: 0 0 3px 0; 
+    letter-spacing: 1px;
+    font-weight: 900;
+    text-shadow: none; 
+}
+
+.last-card .scratch-content h3 {
+    color: #be185d; 
+}
+
+.scratch-content p {
+    font-size: 11px;
+    font-family: 'Outfit', sans-serif; 
+    color: #475569; 
+    margin: 0;
+    font-weight: 500;
+    text-transform: none; 
+    letter-spacing: 0.5px;
+}
+
+.scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+#uptime .mt-16.font-mono p { font-size: 10px !important; letter-spacing: 1px !important; margin: 2px 0 !important; }
+#uptime .mt-8 p.font-mono { font-size: 11px !important; letter-spacing: 1px !important; }
+#binary-clock { font-size: 17px !important; letter-spacing: 1px !important; }
+#uptime p.text-\[8px\] { font-size: 7px !important; opacity: 0.5; }
+#university-archives p.font-mono { font-size: 8px !important; letter-spacing: 2px !important; opacity: 0.6; }
+
+#love-letter-modal { 
+    display: none; 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.92); 
+    z-index: 99999; 
+    align-items: center; 
+    justify-content: center; 
+    backdrop-filter: blur(15px); 
+    opacity: 0; 
+    transition: 0.4s; 
+}
+
+.modal-content { 
+    background: rgba(255, 255, 255, 0.95); 
+    border-radius: 20px; 
+    width: 95%; 
+    max-width: 900px; 
+    max-height: 85vh; 
+    padding: 40px; 
+    position: relative; 
+    color: #000; 
+    box-shadow: 0 0 50px rgba(59, 130, 246, 0.4);
+    display: flex; 
+    flex-direction: column;
+    border: 1px solid var(--pink);
+}
+
+.modal-body { 
+    overflow-y: auto; 
+    direction: rtl; 
+    text-align: right; 
+    font-family: 'Outfit', sans-serif; 
+    font-size: 19px; 
+    line-height: 1.8; 
+    padding: 10px 20px;
+}
+
+.modal-body p { 
+    margin-bottom: 20px; 
+    color: #1a1a1a;
+}
+
+/* غطاء حماية السكراتش كارد المطور */
+#scratch-lock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* للتوسيط التام */
+    width: 95%;
+    max-width: 600px; /* ليطابق عرض قائمة الكروت */
+    height: calc(100% - 40px); /* ليغطي منطقة الكروت بترك مسافة بسيطة */
+    background: rgba(255, 255, 255, 0.95); /* خلفية بيضاء أنيقة */
+    backdrop-filter: blur(15px);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+    border: 2px solid var(--glow);
+    box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3); /* ظل أزرق خفيف */
+    text-align: center;
+    padding: 30px;
+    transition: all 0.5s ease;
+}
+
+/* تعديل ألوان النصوص لتتناسب مع الخلفية البيضاء */
+#scratch-lock h3 {
+    color: #1e40af !important; /* أزرق غامق */
+    text-shadow: none !important;
+    font-size: 14px !important;
+    letter-spacing: 2px !important;
+}
+
+#scratch-lock p {
+    color: #475569 !important; /* رمادي غامق */
+    text-shadow: none !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* تعديل نقطة الحالة لتبرز فوق الأبيض */
+#scratch-lock .status-dot {
+    background-color: #ef4444; /* أحمر للتنبيه */
+    box-shadow: 0 0 15px #ef4444;
+}
+
+</style>
+
+</head>
+<body>
+
+    <div class="crt-overlay"></div>
+
+    <div class="global-bg">
+        <video autoplay muted loop playsinline id="bg-video"><source src="https://files.catbox.moe/snhwej.mp4" type="video/mp4"></video>
+        <div class="scanlines"></div>
+        <div class="v-overlay"></div>
+    </div>
+
+    <div id="lock-screen">
+        <div class="text-center w-full px-6">
+            <h2 class="uppercase mb-8 text-[11px] tracking-[0.5em] font-black text-blue-400">IN A WORLD OF 0s AND 1s, YOU ARE MY ONLY 1</h2>
+            <div class="flex gap-6 items-center justify-center mb-10" id="timer-box">
+                <div class="text-center"><div id="h-val" class="timer-val">00</div><p class="text-[9px] font-bold text-blue-400">HRS</p></div>
+                <div class="text-3xl text-white/10">:</div>
+                <div class="text-center"><div id="m-val" class="timer-val">00</div><p class="text-[9px] font-bold text-blue-400">MIN</p></div>
+                <div class="text-3xl text-white/10">:</div>
+                <div class="text-center"><div id="s-val" class="timer-val">00</div><p class="text-[9px] font-bold text-blue-400">SEC</p></div>
+            </div>
+            <p id="status-label" class="text-[10px] font-bold tracking-[4px] text-white animate-pulse uppercase">COUNTING SECONDS TO CELEBRATE YOU...</p>
+            
+            <div id="decrypt-container" style="display: none;" class="flex flex-col items-center">
+                <p class="text-[9px] text-blue-400 tracking-widest mb-2">[ HINT: YEAR OF GRADUATION / سنة التخرج ]</p>
+                <input type="text" id="bypass-key" class="bypass-input" placeholder="ENTER YEAR..." maxlength="4">
+                <button onclick="checkBypass()" class="btn-strong mt-4" style="padding: 10px 30px;">   DECRYPT OUR MOMENTS  </button>
+                <p id="bypass-err" class="text-pink-500 text-[10px] mt-2 opacity-0 font-mono">! INVALID ACCESS_KEY</p>
+            </div>
+        </div>
+        <div class="absolute bottom-12">
+            <button onclick="triggerAudio()" id="mystery-btn" class="px-10 py-4 border-2 border-blue-500/30 bg-blue-500/10 rounded-full text-white font-mono text-[11px] tracking-widest uppercase hover:bg-blue-500/20 transition-all">[ INITIALIZE AUDIO SYNC ]</button>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop><source src="https://files.catbox.moe/d27al4.mp3" type="audio/mpeg"></audio>
+    <audio id="voice-memo"><source src="https://files.catbox.moe/6r112m.m4a" type="audio/mp4"></audio>
+    <audio id="clairo-music" preload="auto"><source src="https://files.catbox.moe/st2tsf.mp4" type="audio/mpeg"></audio>
+    <audio id="typing-sound" loop><source src="https://files.catbox.moe/xmh4sw.mp3"></audio>
+    <audio id="kiss-sound"><source src="https://files.catbox.moe/afc3bo.mp3" type="audio/mpeg"></audio>
+    <audio id="note-typing-sound" loop><source src="https://files.catbox.moe/msp4rs.mp3"></audio>
+
+    <div id="main-content">
+        <section id="hero" style="padding-top: 150px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;">
+            <h1 class="name-style">MOHAMMAD</h1>
+            <div class="hug-section" id="hug-protocol">
+                <img src="https://files.catbox.moe/0jc7mh.webp" class="character stitch-blue" id="stitch-blue">
+                <div class="heart-trigger" onclick="runHugProtocol()">
+                    <span class="heart-hint" id="h-hint" style="position: absolute; top: -35px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 8px; color: var(--pink); letter-spacing: 2px; white-space: nowrap; text-transform: uppercase; animation: blinkHint 1.5s infinite; pointer-events: none;">[ ACCESS GRANTED: TAP TO CLAIM YOUR BIRTHDAY KISS ]</span>
+                    ❤
+                </div>
+                <div class="secret-msg" id="hug-msg">"Your soul is the only code my heart can decrypt."</div>
+                <img src="https://files.catbox.moe/ypxnn6.webp" class="character stitch-pink" id="stitch-pink">
+            </div>
+            <p class="mt-12 text-[10px] font-mono tracking-[1em] text-white/30 uppercase text-center">CONNECTION_ESTABLISHED // 2020</p>
+        </section>
+
+        <section id="terminal-logs-section" style="min-height: auto; padding: 20px 0 60px 0;">
+            <div class="terminal-log-container">
+                <div id="log-display"></div>
+                <span id="log-cursor" class="animate-pulse">_</span>
+            </div>
+        </section>
+
+        <section id="university-archives">
+            <h2 class="text-white bg-blue-900/20 px-8 py-4 font-black uppercase mb-16 shadow-2xl tracking-[0.4em] border-l-4 border-blue-600">> UNIVERSITY_ARCHIVES  </h2>
+            <div class="flex flex-wrap justify-center gap-12 max-w-6xl w-full">
+                <div class="video-wrapper"><video controls class="vertical-video" poster="https://files.catbox.moe/zoagbk.png"><source src="https://res.cloudinary.com/duqputogc/video/upload/v1771183446/WhatsApp_Video_2026-02-15_at_9.40.13_PM_ftvjlp.mp4" type="video/mp4"></video><p class="text-[9px] text-center mt-4 font-mono text-white/40 uppercase tracking-[3px]">LOG_FILE: BALQA_01</p></div>
+                <div class="video-wrapper"><video controls class="vertical-video" poster="https://files.catbox.moe/jgblzq.png"><source src="https://res.cloudinary.com/duqputogc/video/upload/v1771184006/WhatsApp_Video_2026-02-15_at_9.59.00_PM_kx7cvi.mp4" type="video/mp4"></video><p class="text-[9px] text-center mt-4 font-mono text-white/40 uppercase tracking-[3px]">LOG_FILE: BALQA_02</p></div>
+            </div>
+        </section>
+
+        <section id="uptime">
+            <div class="terminal-box text-center w-full max-w-3xl px-6">
+                <h3 class="font-mono text-blue-400 text-[10px] tracking-[0.4em] uppercase mb-12 opacity-50">> > > OUR FOREVER IN REALTIME </h3>
+                <div class="grid grid-cols-3 gap-6">
+                    <div><div id="up-days" class="mega-val">0000</div><p class="mega-label">Days</p></div>
+                    <div><div id="up-hours" class="mega-val">00</div><p class="mega-label">Hrs</p></div>
+                    <div><div id="up-mins" class="mega-val">00</div><p class="mega-label">Min</p></div>
+                </div>
+                <div class="mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 border-t border-white/5 pt-8">
+                    <p class="text-blue-500 font-black">START_POINT: 08.10.2020 | 11:38 AM</p>
+                    <p>LOCATION: Al-Salt // جامعة البلقاء التطبيقية</p>
+                </div>
+               <div class="mt-8 pt-4 border-t border-white/5 opacity-60">
+                  <p class="font-mono text-[9px] tracking-[4px] text-blue-400 mb-2 uppercase">> EVERY_SECOND_MATTERS</p>
+                  <div id="binary-clock" class="font-mono text-xl md:text-2xl tracking-widest text-white/80">
+                    00:00:00:<span class="text-pink-500" id="ms-val">000</span>
+                </div>
+    <p class="text-[8px] font-mono text-white/20 mt-1 uppercase">Timezone: Asia/Amman [GMT+3]</p>
+</div>
+            </div>
+        </section>
+
+        <section id="memory-network-section" style="padding: 80px 0;">
+            <canvas id="star-map-canvas"></canvas>
+            <div class="text-center mb-12" style="position: relative; z-index: 2;">
+                <h2 class="name-style" style="font-size: 1.5rem; letter-spacing: 10px;">BEYOND THE DEGREE</h2>
+                <p class="text-[8px] font-mono tracking-[0.4em] text-white/20 uppercase mt-2">> "Together we coded our future, and that was the day we hit: RUN." </p>
+            </div>
+            <div class="memory-network flex flex-wrap justify-center gap-6 max-w-6xl mx-auto" style="position: relative; z-index: 2;">
+                <div class="node-item video-node" onclick="activateNode(this)"><video playsinline loop muted><source src="https://files.catbox.moe/wad03x.mp4"></video></div>
+                <div class="node-item flip-card auto-flip" onclick="this.classList.toggle('is-flipped')"><div class="flip-card-inner"><div class="card-front"><img src="https://files.catbox.moe/rrhh2k.jfif"></div><div class="card-back"><p>من قاعات الكلية لمنصة التخرج كنت وما زلت شريكي الوحيد</p></div></div></div>
+                <div class="node-item video-node" onclick="activateNode(this)"><video playsinline loop muted><source src="https://files.catbox.moe/fjbq60.mp4"></video></div>
+                <div class="node-item flip-card auto-flip" onclick="this.classList.toggle('is-flipped')"><div class="flip-card-inner"><div class="card-front"><img src="https://files.catbox.moe/ayu8b6.jfif"></div><div class="card-back"><p>شهادتنا الحقيقية هي انو قدرنا نوصل لهون وإحنا مع بعض </p></div></div></div>
+                <div class="node-item video-node" onclick="activateNode(this)"><video playsinline loop muted><source src="https://files.catbox.moe/5m5gw4.mp4"></video></div>
+                <div class="node-item flip-card auto-flip" onclick="this.classList.toggle('is-flipped')"><div class="flip-card-inner"><div class="card-front"><img src="https://files.catbox.moe/in4kpl.jfif"></div><div class="card-back"><p>لولا وجودك جنبي ما كان للفرحة هاي الطعم </p></div></div></div>
+                <div class="node-item video-node" onclick="activateNode(this)"><video playsinline loop muted><source src="https://files.catbox.moe/1r6d4m.mp4"></video></div>
+                <div class="node-item flip-card auto-flip" onclick="this.classList.toggle('is-flipped')"><div class="flip-card-inner"><div class="card-front"><img src="https://files.catbox.moe/ts5rr7.jfif"></div><div class="card-back"><p> بكل خطوة رح اكون معك وبكل نجاح أنا فخورة فيك </p></div></div></div>
+                <div class="node-item video-node" onclick="activateNode(this)"><video playsinline loop muted><source src="https://files.catbox.moe/m51iwj.mp4"></video></div>
+                <div class="node-item flip-card auto-flip" onclick="this.classList.toggle('is-flipped')"><div class="flip-card-inner"><div class="card-front"><img src="https://files.catbox.moe/2rxelx.jfif"></div><div class="card-back"><p> بداية طريق جديد وإحنا مع بعض سوا بدينا الطريق، وسوا ختمناه بأحلى فرحة</p></div></div></div>
+            </div>
+                <p class="text-[8px] font-mono tracking-[0.4em] text-white/20 uppercase mt-2">>"شكراً لأنك كنت السند بكل لحظة صعبة، والضحكة بكل لحظة حلوه" </p>
+
+        </section>
+
+       <section id="daily-moments" style="padding: 100px 5%;">
+    <div class="text-center mb-16">
+        <h2 class="name-style" style="font-size: 1.8rem; letter-spacing: 12px;">> RECORDED WITH LOVE</h2>
+        <p class="text-[8px] font-mono tracking-[0.5em] text-white/20 mt-4 uppercase">> SYSTEM_LOG: EVERY_LITTLE_DETAIL</p>
+    </div>
+
+    <div class="moments-trio">
+        <div class="moment-card">
+            <span class="moment-title">NEVER_JUST_A_CUP // ☕</span>
+            <div class="moment-video-frame">
+                <video controls playsinline poster="https://files.catbox.moe/rsu90b.jpeg" onended="this.load()">
+                    <source src="https://files.catbox.moe/vek7j9.mov" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="moment-card">
+            <span class="moment-title">IT WAS_NEVER_THE_MEAL // 🍕</span>
+            <div class="moment-video-frame">
+                <video controls playsinline poster="https://files.catbox.moe/zia92z.jpeg" onended="this.load()">
+                    <source src="https://files.catbox.moe/55urxx.mov" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="moment-card">
+            <span class="moment-title">OUR_PRIVATE_ESCAPE // 🚗</span>
+            <div class="moment-video-frame">
+                <video controls playsinline poster="https://files.catbox.moe/r6xv29.jpeg" onended="this.load()">
+                    <source src="https://files.catbox.moe/n5pcnx.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="moment-card">
+            <span class="moment-title">A_SILENT_PROMISE // 🤝</span>
+            <div class="moment-video-frame">
+                <video controls playsinline poster="https://files.catbox.moe/sb8cj4.jpeg" onended="this.load()">
+                    <source src="https://files.catbox.moe/emm29j.mov" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+    </div>
+<div class="sentimental-note">
+    <p id="typed-note" style="min-height: 100px;"></p>
+</div>
+</section>
+
+        <section id="gallery">
+    <h2 class="text-blue-500 font-black text-[10px] tracking-[0.7em] uppercase mb-12 opacity-30"> EVERY_FRAME_IS_A_HEARTBEAT \\ SINCE_2020 ></h2>
+    <div class="photo-collage">
+        <div class="photo-card" style="--r: -3deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/dkch16.jpeg');"></div>
+            <span class="photo-place">Taj Mall</span>
+        </div>
+        <div class="photo-card" style="--r: 2deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/b6lq76.jpeg');"></div>
+            <span class="photo-place">Neds Pizza</span>
+        </div>
+        <div class="photo-card" style="--r: -5deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/4sdaq5.jpeg');"></div>
+            <span class="photo-place">Gold's Gym</span>
+        </div>
+        <div class="photo-card" style="--r: 4deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/jsuszf.jpeg');"></div>
+            <span class="photo-place">ThePastry</span>
+        </div>
+        <div class="photo-card" style="--r: -2deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/u3krpo.jpeg');"></div>
+            <span class="photo-place">ThePastry</span>
+        </div>
+        <div class="photo-card" style="--r: 6deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/44q0x9.jpeg');"></div>
+            <span class="photo-place">Porto Dead Sea</span>
+        </div>
+        <div class="photo-card" style="--r: -4deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/k4bkhu.jpeg');"></div>
+            <span class="photo-place">Porto Dead Sea</span>
+        </div>
+        <div class="photo-card" style="--r: 3deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/sw028l.jpeg');"></div>
+            <span class="photo-place">HashBurger</span>
+        </div>
+        <div class="photo-card" style="--r: -1deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/oq2tcu.jpeg');"></div>
+            <span class="photo-place">BAU University</span>
+        </div>
+        <div class="photo-card" style="--r: 5deg;">
+            <div class="photo-img" style="background-image: url('https://files.catbox.moe/03h158.jpeg');"></div>
+            <span class="photo-place">Porto Dead Sea</span>
+        </div>
+    </div>
+</section>
+        <section class="cyber-rating-card">
+            <h3 class="text-[10px] font-mono text-white/20 mb-12 tracking-[0.5em] text-center">> EMOTIONAL_QUERY_PROTOCOL</h3>
+            <div class="rating-row">
+                <div class="rating-info"><span class="rating-question">How much do you love me?</span></div>
+                <input type="range" min="0" max="100" value="0" class="cyber-range" id="love-range">
+                <div class="range-labels"><span>0%</span><span>100%</span></div>
+                <span class="forced-error" id="love-err">! ERROR: ONLY 100% IS ACCEPTED</span>
+            </div>
+            <div class="rating-row">
+                <div class="rating-info"><span class="rating-question" style="color: var(--pink);">How much do you hate me?</span></div>
+                <input type="range" min="0" max="100" value="0" class="cyber-range" id="hate-range">
+                <div class="range-labels"><span>0%</span><span>100%</span></div>
+                <span class="forced-error" id="hate-err">! ACCESS DENIED: ZERO OPTION ONLY</span>
+            </div>
+        </section>
+       <section id="prizes-section" style="padding: 100px 5%; position: relative;">
+    <div class="text-center mb-16">
+        <h2 class="name-style" style="font-size: 1.5rem; letter-spacing: 10px;">> DECRYPT REWARDS</h2>
+        <p class="text-[9px] font-mono tracking-[0.4em] text-blue-400 mt-2">SCRATCH EACH BAR TO UNLOCK YOUR BIRTHDAY PROTOCOL_</p>
+    </div>
+
+    <div id="scratch-lock">
+        <div class="status-dot mb-6"></div>
+        <h3 class="font-bold uppercase mb-4 tracking-widest">PROXIMITY_KEY_REQUIRED</h3>
+        <p class="text-sm mb-8"> REQUEST ACCESS FROM HER .</p>
+        <button onclick="unlockScratch()" class="btn-strong" style="border-color: #1e40af; color: #1e40af; padding: 12px 30px; font-size: 10px;">
+            [ AUTHORIZE_ACCESS ]
+        </button>
+    </div>
+
+    <div class="scratch-list">
+        <div class="scratch-card">
+            <div class="scratch-content"><h3>Happy Birthday My Batman</h3><p>Something sweet for my hero</p></div>
+            <canvas class="scratch-canvas"></canvas>
+        </div>
+        
+        <div class="scratch-card">
+            <div class="scratch-content"><h3>🧥 Stay Warm</h3><p>Wear this and think of me.</p></div>
+            <canvas class="scratch-canvas"></canvas>
+        </div>
+        
+        <div class="scratch-card">
+            <div class="scratch-content"><h3>💺 Daily Comfort</h3><p>For your long hours of driving and work.</p></div>
+            <canvas class="scratch-canvas"></canvas>
+        </div>
+        
+        <div class="scratch-card">
+            <div class="scratch-content"><h3>🚗 Hidden Item</h3><p>Check the car glovebox now.</p></div>
+            <canvas class="scratch-canvas"></canvas>
+        </div>
+        
+        <div class="scratch-card">
+            <div class="scratch-content"><h3>🏮 Magic Moment</h3><p>Make a wish and let's fly it together.</p></div>
+            <canvas class="scratch-canvas"></canvas>
+        </div>
+        
+        <div class="scratch-card last-card">
+            <div class="scratch-content"><h3>🫂 Best for Last</h3><p>Come get your birthday hug!</p></div>
+            <canvas class="scratch-canvas"></canvas>
+        </div>
+    </div>
+</section>
+
+        <section id="footer" style="min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(30, 64, 175, 0.1), transparent); position: relative;">
+            
+            <h2 id="typing-text" class="text-md md:text-xl font-black text-center max-w-2xl px-6 mb-12 text-white min-h-[100px]" style="text-shadow: 0 0 20px var(--glow);"></h2>
+            
+            <div class="text-center z-10">
+                <button onclick="openLetterModal()" class="btn-strong" style="border-color: var(--pink); color: var(--pink); box-shadow: 0 0 20px rgba(255, 133, 162, 0.2);">[ DECRYPT_MY_HEART.txt ]</button>
+            </div>
+
+            <p style="margin-top: 100px; font-size: 9px; font-family: 'Space Mono'; opacity: 0.3; letter-spacing: 5px;">MADE WITH LOVE <span style="color: red;">❤</span></p>
+        </section>
+
+        <div id="love-letter-modal">
+            <div class="modal-content">
+                <button onclick="closeLetterModal()" style="position: absolute; top: 15px; left: 15px; background: transparent; border: none; color: var(--pink); font-size: 20px; cursor: pointer; font-weight: bold;">✕</button>
+                <h3 style="font-family: 'Space Mono', monospace; color: #1e40af; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; text-align: left; border-bottom: 1px dashed rgba(30, 64, 175, 0.3); padding-bottom: 10px;">> SYSTEM_OVERRIDE: MESSAGE_RECEIVED</h3>
+                <div class="modal-body">
+                    <p style="color: var(--pink); font-weight: bold; margin-bottom: 15px; font-size: 18px;">To the one who made every memory worth keeping</p>
+                    <p>شكراً.</p>
+                    <p>أه أه أول إشي بدي أحكيلك إياه هو شكراً</p>
+                    <p>شكراً لانو عرفت أطلع مني شخصية ما طلعت بالعاده وما كانت بهاي الراحة مع حدا من كتير زمان</p>
+                    <p>شكراً لأنك خليتني مرتاحة بكل إشي بدي أحكي وخليتني ما أخاف من الي جواتي</p>
+                    <p>يمكن ببداياتنا كنت معصبة منك ومن شعوري ومن حالنا وليه إحنا هيك، بس أنا هلا فاهمة</p>
+                    <p>فاهمة خوفك وخوفي وكتير أخدني وقت ومشاعر لوصلت لهون بس وصلت</p>
+                    <p>مش زعلانه ولا معصبة من علاقتنا، مرتاحة فيها وفاهمة التخبط الي إحنا فيه، فاهمة إنو إحنا مش مكتفيين بس مش قادرين نغامر بأكتر</p>
+                    <p>وصرت كتير مبسوطة ومرتاحة معك بعد ما فهمت هاد الإشي.</p>
+                    <p>علاقتنا هي العلاقة يلي ما رح تكون بعد هيك ويلي ما رح تتكرر مع حدا تاني</p>
+                    <p>علاقة كنت أصدق شخصية مني فيها، مش خايفة من إشي ولا خايفة من إنك تحكم علي من إشي، ببكي براحتي وبوقع وبقوم براحتي وشوي شوي عنجد عم بسمحلك تعرف أشياء بشخصيتي ما كنت بقدر أفرجيها لحدا من قبل مقتنعة إنو هاي العلاقة فيها أشياء صادقة أكتر من أي علاقات كانت بحياتنا</p>
+                    <p>كل سنة وإنت سالم، وكل سنة وإنت هاد الشخص 'الاستثناء' اللي ما بتكرر</p>
+                    <p>بدي أشكر الأيام اللي جابتك لطريقي بتمنالك سنة بتشبه دفا قلبك وبتمنى لحالي إنك تضل جنبي وبقربي</p>
+
+
+                    <p style="margin-top: 30px; text-align: left; font-family: 'Space Mono', monospace; color: #1e40af; font-size: 12px; direction: ltr;">END OF MESSAGE_</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+            let lastCardScratched = false;
+        gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+// --- 1. وظيفة العناق والقبلة ---
+function runHugProtocol() {
+    const hint = document.getElementById('h-hint');
+    if(hint) hint.style.display = 'none';
+    
+    const kissSound = document.getElementById('kiss-sound');
+    if(kissSound) kissSound.play().catch(e => {});
+    
+    const pink = document.getElementById('stitch-pink');
+    const msg = document.getElementById('hug-msg');
+    const heart = document.querySelector('.heart-trigger');
+    
+    gsap.to(heart, { opacity: 0, duration: 0.3 });
+    gsap.to(pink, { x: -310, duration: 2, ease: "power2.inOut" });
+    gsap.to(msg, { 
+        width: 280, 
+        paddingLeft: 15, 
+        paddingRight: 15, 
+        opacity: 1, 
+        duration: 2, 
+        ease: "power2.inOut", 
+        onComplete: () => {
+            confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 }, colors: ['#ff85a2', '#3b82f6'] });
+        }
+    });
+}
+
+// --- 2. عداد الوقت (Uptime) ---
+const startDate = new Date('October 8, 2020 11:38:00').getTime();
+function updateUptime() {
+    const now = new Date().getTime(); 
+    const diff = now - startDate;
+    document.getElementById('up-days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById('up-hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+    document.getElementById('up-mins').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+}
+setInterval(updateUptime, 1000);
+
+// --- 3. عداد الوقت المستهدف لشاشة القفل (لغاية 20/2/2026 الساعة 7:00 مساءً) ---
+const targetDate = new Date('February 20, 2026 19:25:00').getTime();
+
+const timerInt = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+        clearInterval(timerInt);
+        // تصفير العداد
+        const hElement = document.getElementById('h-val');
+        const mElement = document.getElementById('m-val');
+        const sElement = document.getElementById('s-val');
+        if(hElement) hElement.innerText = "00";
+        if(mElement) mElement.innerText = "00";
+        if(sElement) sElement.innerText = "00";
+
+        // إظهار حقل إدخال كلمة المرور
+        gsap.to("#timer-box, #status-label", { opacity: 0, duration: 0.5, onComplete: () => {
+            document.getElementById('timer-box').style.display = 'none';
+            document.getElementById('status-label').style.display = 'none';
+            document.getElementById('decrypt-container').style.display = 'flex'; 
+        }});
+        return;
+    }
+
+    // حساب الساعات والدقائق والثواني المتبقية
+    const hours = Math.floor(distance / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const hElement = document.getElementById('h-val');
+    const mElement = document.getElementById('m-val');
+    const sElement = document.getElementById('s-val');
+
+    if(hElement) hElement.innerText = String(hours).padStart(2, '0');
+    if(mElement) mElement.innerText = String(minutes).padStart(2, '0');
+    if(sElement) sElement.innerText = String(seconds).padStart(2, '0');
+
+}, 1000);
+
+// --- 4. الساعة الحية ---
+function updateLiveClock() {
+    const now = new Date();
+    const jordanTimeFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Amman',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: false
+    });
+    const timeParts = jordanTimeFormatter.formatToParts(now);
+    const seconds = timeParts.find(p => p.type === 'second').value;
+    const timeString = jordanTimeFormatter.format(now);
+    const ms = String(now.getMilliseconds()).padStart(3, '0');
+    const clockElement = document.getElementById('binary-clock');
+    if (clockElement) {
+        clockElement.innerHTML = `${timeString}:<span class="text-pink-500">${ms}</span>`;
+        if (seconds === "00") clockElement.classList.add('glitch-active');
+        else clockElement.classList.remove('glitch-active');
+    }
+}
+setInterval(updateLiveClock, 10);
+
+// --- 5. فك التشفير والدخول ---
+function checkBypass() {
+    const input = document.getElementById('bypass-key').value;
+    const error = document.getElementById('bypass-err');
+    if(input === "2024") unlockExperience();
+    else {
+        error.style.opacity = "1";
+        gsap.to("#bypass-key", { x: 10, repeat: 5, yoyo: true, duration: 0.05 });
+    }
+}
+
+function unlockExperience() {
+    // 1. إيقاف الأصوات غير الضرورية وتشغيل الفويس ميمو
+    const ts = document.getElementById('typing-sound');
+    if(ts) { ts.pause(); ts.currentTime = 0; }
+    
+    const bgMusic = document.getElementById('bg-music');
+    const voiceMemo = document.getElementById('voice-memo');
+    bgMusic.pause();
+    voiceMemo.play().catch(e => {});
+
+    // 2. إخفاء شاشة القفل وإظهار المحتوى
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('clairo-music').load(); 
+    document.getElementById('main-content').style.display = 'block';
+
+    // 👈 تشغيل الكشط
+    initScratchCards();
+
+    // 3. تشغيل تأثير القلوب المتساقطة
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) { return clearInterval(interval); }
+        const particleCount = 50 * (timeLeft / duration);
+        
+        confetti({
+            ...defaults, particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+            colors: ['#ff85a2', '#ffb6c1'], shapes: ['circle']
+        });
+        confetti({
+            ...defaults, particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+            colors: ['#3b82f6', '#ffffff'],
+        });
+    }, 250);
+
+    // 4. تشغيل باقي الأنظمة
+    initTyping();
+    drawStarNetwork();
+    
+    setTimeout(() => {
+        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#ff85a2', '#3b82f6', '#ffffff'] });
+    }, 1000);
+}
+
+
+// --- 6. نظام الـ Logs ---
+const logs = [
+    "> INITIALIZING MEMORY_STREAM...",
+    "> LOADING ARCHIVES FROM 2020...",
+    "> CONNECTION STABILITY: 100%",
+    "> ENCRYPTING BEST_FRIEND_DATA...",
+    "> SUCCESS: MOHAMMAD_V4.EXE LOADED."
+];
+
+function startLogs() {
+    let lineIdx = 0;
+    const display = document.getElementById('log-display');
+    const typingSound = document.getElementById('typing-sound');
+    if(typingSound) typingSound.play().catch(e => {});
+
+    function typeLine() {
+        if (lineIdx < logs.length) {
+            const p = document.createElement('div');
+            p.className = 'log-line';
+            display.appendChild(p);
+            let charIdx = 0;
+            const text = logs[lineIdx];
+            const typeInterval = setInterval(() => {
+                p.innerHTML += text.charAt(charIdx);
+                charIdx++;
+                if (charIdx >= text.length) {
+                    clearInterval(typeInterval);
+                    lineIdx++;
+                    if (lineIdx < logs.length) setTimeout(typeLine, 300);
+                    else if(typingSound) typingSound.pause();
+                }
+            }, 40);
+        }
+    }
+    typeLine(); 
+}
+
+let nodePositions = [];
+
+function updateNodePositions() {
+    const canvas = document.getElementById('star-map-canvas');
+    if(!canvas) return;
+    const parentRect = canvas.getBoundingClientRect();
+    const nodes = document.querySelectorAll('.node-item');
+    
+    nodePositions = Array.from(nodes).map(node => {
+        const rect = node.getBoundingClientRect();
+        return {
+            x: rect.left - parentRect.left + rect.width / 2,
+            y: rect.top - parentRect.top + rect.height / 2
+        };
+    });
+}
+
+function drawStarNetwork() {
+    const canvas = document.getElementById('star-map-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+    
+    updateNodePositions();
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i < nodePositions.length; i++) {
+            for (let j = i + 1; j < nodePositions.length; j++) {
+                const p1 = nodePositions[i];
+                const p2 = nodePositions[j];
+                const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+
+                if (dist < 400) {
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+window.addEventListener('resize', () => {
+    updateNodePositions();
+    const canvas = document.getElementById('star-map-canvas');
+    if(canvas) {
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = canvas.parentElement.offsetHeight;
+    }
+});
+
+
+// --- 8. التحكم الذكي بالفيديوهات ---
+const allVideos = document.querySelectorAll('video');
+const clairoMusic = document.getElementById('clairo-music');
+
+const videoScrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+            const video = entry.target;
+            if (!video.paused) { video.pause(); }
+        }
+    });
+}, { threshold: 0.1 }); 
+
+allVideos.forEach(video => {
+    if (video.id !== 'bg-video') {
+        video.loop = false;
+        videoScrollObserver.observe(video);
+
+        video.addEventListener('play', () => {
+            allVideos.forEach(v => { if (v !== video && v.id !== 'bg-video') v.pause(); });
+            if (clairoMusic && !clairoMusic.paused) clairoMusic.pause();
+        });
+
+        video.addEventListener('ended', () => {
+            video.load(); 
+            const parent = video.closest('.node-item');
+            if (parent) parent.classList.remove('playing');
+        });
+    }
+});
+
+const gallerySection = document.getElementById('gallery');
+const clairoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            clairoMusic.currentTime = 0; 
+            clairoMusic.volume = 0;
+            clairoMusic.play().then(() => { 
+                gsap.to(clairoMusic, { volume: 0.6, duration: 2 }); 
+            }).catch(e => {});
+        } else {
+            clairoMusic.pause();
+            clairoMusic.currentTime = 0; 
+        }
+    });
+}, { threshold: 0.1 }); 
+
+if (gallerySection) clairoObserver.observe(gallerySection);
+
+// --- 9. الوظائف العامة ---
+function triggerAudio() { document.getElementById('bg-music').play().catch(e => {}); }
+function fireworksBurst() { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); }
+function activateNode(container) { 
+    const video = container.querySelector('video');
+    container.classList.add('playing');
+    video.play(); video.muted = false; video.controls = true;
+}
+
+const logsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { startLogs(); logsObserver.unobserve(entry.target); } });
+}, { threshold: 0.5 });
+if (document.getElementById('terminal-logs-section')) logsObserver.observe(document.getElementById('terminal-logs-section'));
+
+window.addEventListener('resize', drawStarNetwork);
+
+// نص الرسالة العاطفية
+const noteText = "والله الموضوع عمره ما كان وين بنروح أو شو بناكل، القصة إنك إنت اللي كنت معي.. شكراً من كل قلبي على كل لقمة قسمناها، وعلى كل ضحكة ضحكناها من جواتنا، وعلى كل طريق سمعنا فيه أغانينا وحكينا فيه عن أحلامنا. شكراً لأنك بكل هالتفاصيل كنت عم تبنيلي حياة.. إنت الشخص اللي خلّى للحياة طعم ولون.";
+
+const typedNoteElement = document.getElementById('typed-note');
+const noteTypingSound = document.getElementById('note-typing-sound');
+
+const noteObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            if(noteTypingSound) {
+                noteTypingSound.volume = 0.5;
+                noteTypingSound.play().catch(e => console.log("Sound blocked"));
+            }
+
+            typedNoteElement.innerHTML = ""; // تنظيف النص قبل البدء
+
+            gsap.to(typedNoteElement, {
+                duration: 12, 
+                text: noteText,
+                ease: "none",
+                onComplete: () => {
+                    if(noteTypingSound) noteTypingSound.pause(); 
+                }
+            });
+
+            noteObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 }); // تم التغيير من 0.5 لـ 0.1
+if (document.querySelector('.sentimental-note')) {
+    noteObserver.observe(document.querySelector('.sentimental-note'));
+}
+
+function initTyping() { 
+    gsap.to("#typing-text", { 
+        scrollTrigger: "#footer", 
+        duration: 5, 
+        text: "بكل سطر كود، وبكل ذكرى بنيناها.. بضل وجودك هو أجمل إضافة لحياتي. كل عام وإنت بخيريا رب تكون هالسنة حنونة على قلبك متل ما إنت دايمًا حنون بوجودك..",
+        ease: "power1.inOut"
+    }); 
+}
+
+function initScratchCards() {
+    const canvases = document.querySelectorAll('.scratch-canvas');
+    let lastCardScratched = false;
+
+    canvases.forEach((canvas) => {
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const parent = canvas.parentElement;
+
+        function setupCanvas() {
+            canvas.width = parent.offsetWidth;
+            canvas.height = parent.offsetHeight;
+            
+            ctx.fillStyle = '#1e293b'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 11px Space Mono';
+            ctx.textAlign = 'center';
+            ctx.fillText('[ SCRATCH TO REVEAL ]', canvas.width / 2, canvas.height / 2 + 5);
+        }
+
+        setupCanvas();
+        window.addEventListener('resize', setupCanvas);
+
+        let isDrawing = false;
+
+        function scratch(e) {
+            if (!isDrawing) return;
+            if (e.cancelable) e.preventDefault();
+
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(x, y, 25, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (parent.classList.contains('last-card') && !lastCardScratched) {
+                checkCompletion(canvas, ctx);
+            }
+        }
+
+        function checkCompletion(canv, context) {
+            const imageData = context.getImageData(0, 0, canv.width, canv.height);
+            const pixels = imageData.data;
+            let clearPixels = 0;
+            for (let i = 3; i < pixels.length; i += 4) {
+                if (pixels[i] === 0) clearPixels++;
+            }
+            if ((clearPixels / (pixels.length / 4)) > 0.45) {
+                lastCardScratched = true;
+                showFinalAlert();
+            }
+        }
+
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        window.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mousemove', scratch);
+        canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
+        canvas.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('touchmove', (e) => scratch(e), {passive: false});
+    });
+}
+
+// دالة الاحتفال عند كشط الكرت الأخير
+function showFinalAlert() {
+    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#ff85a2', '#3b82f6', '#ffffff'] });
+}
+
+// --- وظائف فتح وإغلاق رسالة الحب (النافذة المنبثقة) ---
+function openLetterModal() {
+    const modal = document.getElementById('love-letter-modal');
+    modal.style.display = 'flex';
+    setTimeout(() => modal.style.opacity = '1', 10);
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff85a2', '#3b82f6'] });
+}
+
+function closeLetterModal() {
+    const modal = document.getElementById('love-letter-modal');
+    modal.style.opacity = '0';
+    setTimeout(() => modal.style.display = 'none', 400);
+}
+
+// --- نظام مؤشر الحب والكره (المنع والرسائل) ---
+const loveRange = document.getElementById('love-range');
+const loveVal = document.getElementById('love-val');
+const loveErr = document.getElementById('love-err');
+
+if(loveRange) {
+    loveRange.addEventListener('input', (e) => {
+        loveVal.innerText = e.target.value + '%';
+        if(e.target.value !== '100') {
+            loveErr.classList.add('visible');
+        } else {
+            loveErr.classList.remove('visible');
+        }
+    });
+    
+    loveRange.addEventListener('change', (e) => {
+        if(e.target.value !== '100') {
+            alert("! ERROR: This option is not allowed. Only 100% is accepted");
+            loveRange.value = 100;
+            loveVal.innerText = '100%';
+            loveErr.classList.remove('visible');
+        }
+    });
+}
+
+const hateRange = document.getElementById('hate-range');
+const hateVal = document.getElementById('hate-val');
+const hateErr = document.getElementById('hate-err');
+
+if(hateRange) {
+    hateRange.addEventListener('input', (e) => {
+        hateVal.innerText = e.target.value + '%';
+        if(e.target.value !== '0') {
+            hateErr.classList.add('visible');
+        } else {
+            hateErr.classList.remove('visible');
+        }
+    });
+
+    hateRange.addEventListener('change', (e) => {
+        if(e.target.value !== '0') {
+            alert("! ACCESS DENIED: Zero option is the only choice here");
+            hateRange.value = 0;
+            hateVal.innerText = '0%';
+            hateErr.classList.remove('visible');
+        }
+    });
+}
+
+function unlockScratch() {
+    // 1. بيطلب الكود من المستخدم
+    const pass = prompt("password");
+    
+    // 2. بيتحقق إذا الكود صح
+    if(pass === "2020") { 
+        // 3. تأثير الاختفاء الأنيق
+        gsap.to("#scratch-lock", {
+            opacity: 0,        // بيصير شفاف
+            scale: 0.8,        // بيصغر حجمه
+            duration: 0.8,      // مدة الحركة (أقل من ثانية)
+            ease: "power2.in",  // نعومة الحركة
+            onComplete: () => {
+                // 4. بيحذف الغطاء تماماً عشان تقدروا تكشطوا
+                document.getElementById('scratch-lock').style.display = 'none';
+                
+                // 5. حفلة كونفيتي صغيرة بمناسبة الفتح
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.8 },
+                    colors: ['#ff85a2', '#3b82f6', '#ffffff']
+                });
+            }
+        });
+    } else {
+        // إذا الكود غلط بيطلع تنبيه
+        alert("Authentication Failed! الكود غير صحيح.");
+    }
+}
+
+</script>
+</body>
+</html>
