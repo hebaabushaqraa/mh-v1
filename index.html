@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-// ⚠️ WARNING: ACCESS DENIED FOR DEVELOPERS!
-//  لا تخرب على حالك المفاجأة وتفتح الـ Console.. 
-// عشان تستمع بالتجربة خليك USER اليوم مش DEV
-
-
         <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -307,7 +302,6 @@ body {
     padding: 40px 10px; 
 }
 
-/* تعديل البطاقة لتصبح بإطار أبيض (نمط بولارويد) */
 .photo-card { 
     width: clamp(140px, 30vw, 210px); 
     background: #ffffff !important; /* الإطار الأبيض */
@@ -1326,7 +1320,6 @@ p.font-mono.text-white\/40 {
             let lastCardScratched = false;
         gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-// --- 1. وظيفة العناق والقبلة ---
 function runHugProtocol() {
     const hint = document.getElementById('h-hint');
     if(hint) hint.style.display = 'none';
@@ -1353,7 +1346,6 @@ function runHugProtocol() {
     });
 }
 
-// --- 2. عداد الوقت (Uptime) ---
 const startDate = new Date('October 8, 2020 11:38:00').getTime();
 function updateUptime() {
     const now = new Date().getTime(); 
@@ -1365,7 +1357,7 @@ function updateUptime() {
 setInterval(updateUptime, 1000);
 
 // --- 3. عداد الوقت المستهدف لشاشة القفل (لغاية 20/2/2026 الساعة 7:00 مساءً) ---
-const targetDate = new Date('February 20, 2026 19:25:00').getTime();
+const targetDate = new Date('February 21, 2026 12:00:00').getTime();
 
 const timerInt = setInterval(() => {
     const now = new Date().getTime();
@@ -1373,7 +1365,6 @@ const timerInt = setInterval(() => {
 
     if (distance <= 0) {
         clearInterval(timerInt);
-        // تصفير العداد
         const hElement = document.getElementById('h-val');
         const mElement = document.getElementById('m-val');
         const sElement = document.getElementById('s-val');
@@ -1381,7 +1372,6 @@ const timerInt = setInterval(() => {
         if(mElement) mElement.innerText = "00";
         if(sElement) sElement.innerText = "00";
 
-        // إظهار حقل إدخال كلمة المرور
         gsap.to("#timer-box, #status-label", { opacity: 0, duration: 0.5, onComplete: () => {
             document.getElementById('timer-box').style.display = 'none';
             document.getElementById('status-label').style.display = 'none';
@@ -1390,7 +1380,6 @@ const timerInt = setInterval(() => {
         return;
     }
 
-    // حساب الساعات والدقائق والثواني المتبقية
     const hours = Math.floor(distance / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -1405,7 +1394,6 @@ const timerInt = setInterval(() => {
 
 }, 1000);
 
-// --- 4. الساعة الحية ---
 function updateLiveClock() {
     const now = new Date();
     const jordanTimeFormatter = new Intl.DateTimeFormat('en-US', {
@@ -1426,7 +1414,6 @@ function updateLiveClock() {
 }
 setInterval(updateLiveClock, 10);
 
-// --- 5. فك التشفير والدخول ---
 function checkBypass() {
     const input = document.getElementById('bypass-key').value;
     const error = document.getElementById('bypass-err');
@@ -1438,7 +1425,6 @@ function checkBypass() {
 }
 
 function unlockExperience() {
-    // 1. إيقاف الأصوات غير الضرورية وتشغيل الفويس ميمو
     const ts = document.getElementById('typing-sound');
     if(ts) { ts.pause(); ts.currentTime = 0; }
     
@@ -1447,15 +1433,12 @@ function unlockExperience() {
     bgMusic.pause();
     voiceMemo.play().catch(e => {});
 
-    // 2. إخفاء شاشة القفل وإظهار المحتوى
     document.getElementById('lock-screen').style.display = 'none';
     document.getElementById('clairo-music').load(); 
     document.getElementById('main-content').style.display = 'block';
 
-    // 👈 تشغيل الكشط
     initScratchCards();
 
-    // 3. تشغيل تأثير القلوب المتساقطة
     const duration = 5 * 1000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -1481,7 +1464,6 @@ function unlockExperience() {
         });
     }, 250);
 
-    // 4. تشغيل باقي الأنظمة
     initTyping();
     drawStarNetwork();
     
@@ -1491,7 +1473,6 @@ function unlockExperience() {
 }
 
 
-// --- 6. نظام الـ Logs ---
 const logs = [
     "> INITIALIZING MEMORY_STREAM...",
     "> LOADING ARCHIVES FROM 2020...",
@@ -1589,7 +1570,6 @@ window.addEventListener('resize', () => {
 });
 
 
-// --- 8. التحكم الذكي بالفيديوهات ---
 const allVideos = document.querySelectorAll('video');
 const clairoMusic = document.getElementById('clairo-music');
 
@@ -1638,7 +1618,6 @@ const clairoObserver = new IntersectionObserver((entries) => {
 
 if (gallerySection) clairoObserver.observe(gallerySection);
 
-// --- 9. الوظائف العامة ---
 function triggerAudio() { document.getElementById('bg-music').play().catch(e => {}); }
 function fireworksBurst() { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); }
 function activateNode(container) { 
@@ -1654,7 +1633,6 @@ if (document.getElementById('terminal-logs-section')) logsObserver.observe(docum
 
 window.addEventListener('resize', drawStarNetwork);
 
-// نص الرسالة العاطفية
 const noteText = "والله الموضوع عمره ما كان وين بنروح أو شو بناكل، القصة إنك إنت اللي كنت معي.. شكراً من كل قلبي على كل لقمة قسمناها، وعلى كل ضحكة ضحكناها من جواتنا، وعلى كل طريق سمعنا فيه أغانينا وحكينا فيه عن أحلامنا. شكراً لأنك بكل هالتفاصيل كنت عم تبنيلي حياة.. إنت الشخص اللي خلّى للحياة طعم ولون.";
 
 const typedNoteElement = document.getElementById('typed-note');
@@ -1668,7 +1646,7 @@ const noteObserver = new IntersectionObserver((entries) => {
                 noteTypingSound.play().catch(e => console.log("Sound blocked"));
             }
 
-            typedNoteElement.innerHTML = ""; // تنظيف النص قبل البدء
+            typedNoteElement.innerHTML = ""; 
 
             gsap.to(typedNoteElement, {
                 duration: 12, 
@@ -1682,7 +1660,7 @@ const noteObserver = new IntersectionObserver((entries) => {
             noteObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1 }); // تم التغيير من 0.5 لـ 0.1
+}, { threshold: 0.1 }); //
 if (document.querySelector('.sentimental-note')) {
     noteObserver.observe(document.querySelector('.sentimental-note'));
 }
@@ -1769,12 +1747,10 @@ function initScratchCards() {
     });
 }
 
-// دالة الاحتفال عند كشط الكرت الأخير
 function showFinalAlert() {
     confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#ff85a2', '#3b82f6', '#ffffff'] });
 }
 
-// --- وظائف فتح وإغلاق رسالة الحب (النافذة المنبثقة) ---
 function openLetterModal() {
     const modal = document.getElementById('love-letter-modal');
     modal.style.display = 'flex';
@@ -1788,7 +1764,6 @@ function closeLetterModal() {
     setTimeout(() => modal.style.display = 'none', 400);
 }
 
-// --- نظام مؤشر الحب والكره (المنع والرسائل) ---
 const loveRange = document.getElementById('love-range');
 const loveVal = document.getElementById('love-val');
 const loveErr = document.getElementById('love-err');
@@ -1838,22 +1813,17 @@ if(hateRange) {
 }
 
 function unlockScratch() {
-    // 1. بيطلب الكود من المستخدم
     const pass = prompt("password");
     
-    // 2. بيتحقق إذا الكود صح
     if(pass === "2020") { 
-        // 3. تأثير الاختفاء الأنيق
         gsap.to("#scratch-lock", {
-            opacity: 0,        // بيصير شفاف
-            scale: 0.8,        // بيصغر حجمه
-            duration: 0.8,      // مدة الحركة (أقل من ثانية)
-            ease: "power2.in",  // نعومة الحركة
+            opacity: 0,          
+            scale: 0.8,        
+            duration: 0.8,      
+            ease: "power2.in",  
             onComplete: () => {
-                // 4. بيحذف الغطاء تماماً عشان تقدروا تكشطوا
                 document.getElementById('scratch-lock').style.display = 'none';
                 
-                // 5. حفلة كونفيتي صغيرة بمناسبة الفتح
                 confetti({
                     particleCount: 150,
                     spread: 70,
@@ -1863,11 +1833,11 @@ function unlockScratch() {
             }
         });
     } else {
-        // إذا الكود غلط بيطلع تنبيه
         alert("Authentication Failed! الكود غير صحيح.");
     }
 }
 
 </script>
 </body>
+
 </html>
